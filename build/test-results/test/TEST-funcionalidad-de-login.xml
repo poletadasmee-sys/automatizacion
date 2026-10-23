@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="funcionalidad de login" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-02T12:57:57.811Z" hostname="CL-JV3NLL3" time="25.711">
+  <properties/>
+  <testcase name="Validar login" classname="funcionalidad de login" time="25.711">
+    <failure message="io.cucumber.junit.UndefinedStepException: The step 'ingresar la pass &quot;Password123&quot;' and 1 other step(s) are undefined.&#10;You can implement these steps using the snippet(s) below:&#10;&#10;@Given(&quot;ingresar la pass {string}&quot;)&#10;public void ingresar_la_pass(String string) {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;@When(&quot;presiono el boton Submit&quot;)&#10;public void presiono_el_boton_submit() {&#10;    // Write code here that turns the phrase above into concrete actions&#10;    throw new io.cucumber.java.PendingException();&#10;}&#10;" type="io.cucumber.junit.UndefinedStepException">io.cucumber.junit.UndefinedStepException: The step 'ingresar la pass &quot;Password123&quot;' and 1 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@Given(&quot;ingresar la pass {string}&quot;)
+public void ingresar_la_pass(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;presiono el boton Submit&quot;)
+public void presiono_el_boton_submit() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+</failure>
+  </testcase>
+  <system-out><![CDATA[
+@login @pruebasRegresion @testCase_1 @rutaCritica
+Scenario: Validar login                                                                        # src/test/resources/features/login.feature:7
+Driver context -> Navegador:Chrome
+
+Sistema Operativo :windows 11, 10.0
+
+Navegador :Chrome
+Chrome seleccionado
+URL Actual: https://practicetestautomation.com/practice-test-login/
+  Given abrir el navegador en la url "https://practicetestautomation.com/practice-test-login/" # StepDefinition.NavDefinition.abrirNavegador(java.lang.String)
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 32960 bytes]
+
+Es visible el elemento web 
+  And ingresar el usuario "student"                                                            # StepDefinition.LoginDefinition.ingresarElUsuario(java.lang.String)
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 33598 bytes]
+
+  And ingresar la pass "Password123"
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 33607 bytes]
+
+  When presiono el boton Submit
+  Then se valida el mensaje Logged In Successfully                                             # StepDefinition.HomeDefinition.seValidaElMensaje()
+]]></system-out>
+  <system-err><![CDATA[oct. 02, 2026 9:58:13 A. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 154
+oct. 02, 2026 9:58:13 A. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 154.0.8037.93. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.30.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+</testsuite>

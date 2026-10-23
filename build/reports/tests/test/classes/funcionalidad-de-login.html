@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class funcionalidad de login</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class funcionalidad de login</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/default-package.html">default-package</a> &gt; funcionalidad de login</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">25.711s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Failed tests</a>
+</li>
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+<li>
+<a href="#">Standard error</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="Validar login"></a>
+<h3 class="failures">Validar login</h3>
+<span class="code">
+<pre id="test-message-Validar login">io.cucumber.junit.UndefinedStepException: The step 'ingresar la pass &quot;Password123&quot;' and 1 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@Given(&quot;ingresar la pass {string}&quot;)
+public void ingresar_la_pass(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;presiono el boton Submit&quot;)
+public void presiono_el_boton_submit() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="test-message-Validar login">Copy</button>
+</span>
+</div>
+</div>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">Validar login</td>
+<td class="failures">25.711s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre id="class-stdout">
+@login @pruebasRegresion @testCase_1 @rutaCritica
+Scenario: Validar login                                                                        # src/test/resources/features/login.feature:7
+Driver context -&gt; Navegador:Chrome
+
+Sistema Operativo :windows 11, 10.0
+
+Navegador :Chrome
+Chrome seleccionado
+URL Actual: https://practicetestautomation.com/practice-test-login/
+  Given abrir el navegador en la url &quot;https://practicetestautomation.com/practice-test-login/&quot; # StepDefinition.NavDefinition.abrirNavegador(java.lang.String)
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 32960 bytes]
+
+Es visible el elemento web 
+  And ingresar el usuario &quot;student&quot;                                                            # StepDefinition.LoginDefinition.ingresarElUsuario(java.lang.String)
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 33598 bytes]
+
+  And ingresar la pass &quot;Password123&quot;
+
+    Embedding [SUCCESS] Step ScreenShots [image/png 33607 bytes]
+
+  When presiono el boton Submit
+  Then se valida el mensaje Logged In Successfully                                             # StepDefinition.HomeDefinition.seValidaElMensaje()
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stdout">Copy</button>
+</span>
+</div>
+<div class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre id="class-stderr">oct. 02, 2026 9:58:13 A. M. org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 154
+oct. 02, 2026 9:58:13 A. M. org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 154.0.8037.93. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.30.0` where the version (&quot;v86&quot;) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+</pre>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="class-stderr">Copy</button>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 9.2.0</a> at 02-10-2026 09:58:24</p>
+</div>
+</div>
+</body>
+</html>

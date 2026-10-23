@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.seleniumhq.selenium:selenium-chromium-driver:4.30.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.seleniumhq.selenium" artifactId="selenium-chromium-driver" version="4.30.0" baseVersion="4.30.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../gradle-8.1.1/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-chromium-driver/4.30.0/e792bead1460f1239bdf8ad319f8e3ca44fddf04/selenium-chromium-driver-4.30.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../gradle-8.1.1/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-chromium-driver/4.30.0/9f5808d77a956316ca4683e50c26108c54c1537c/selenium-chromium-driver-4.30.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

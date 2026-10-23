@@ -15,10 +15,6 @@ java{
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     // Selenium
     implementation 'org.seleniumhq.selenium:selenium-java:4.30.0'
     //implementation 'io.github.bonigarcia:webdrivermanager:5.8.1'
@@ -35,5 +31,6 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
+    include '**/Runner.class'
 }

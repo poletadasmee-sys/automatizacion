@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.cucumber:cucumber-gherkin-messages:7.14.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.cucumber" artifactId="cucumber-gherkin-messages" version="7.14.0" baseVersion="7.14.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../gradle-8.1.1/caches/modules-2/files-2.1/io.cucumber/cucumber-gherkin-messages/7.14.0/8f14c2e240b666bfb4713700e088162e56808342/cucumber-gherkin-messages-7.14.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../gradle-8.1.1/caches/modules-2/files-2.1/io.cucumber/cucumber-gherkin-messages/7.14.0/3db18f88e5743329f0a712fb97c3798549947d3b/cucumber-gherkin-messages-7.14.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
