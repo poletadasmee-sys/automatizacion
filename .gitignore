@@ -1,0 +1,20 @@
+# Claves SSH
+/erick
+/erick.pub
+*.pem
+*.key
+ 
+# Gradle
+.gradle/
+build/
+ 
+# Archivos compilados
+bin/
+out/
+*.class
+ 
+# Reportes
+target/
+ 
+# IntelliJ
+.idea/workspace.xml
