@@ -1,6 +1,7 @@
 package ObjectPage;
 
 import Control.BaseController;
+import Control.DriverContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,15 +56,41 @@ public class LoginPage extends BaseController {
     }
 
     public void validarMsgUsuarioInvalido(){
+
         try {
+
             if(this.msgUsuarioInvalido.isDisplayed()){
                 System.out.println("Mensaje de usuario inválido visible");
             }else{
                 System.out.println("Error al visualizar el mensaje de usuario inválido!");
             }
+
         }catch(Exception e){
-            fail("Error al detectar el mensaje de usuario inválido: "+e.getMessage());
+
+            fail("Error al detectar el mensaje de usuario inválido: "
+                    + e.getMessage());
         }
+    }
+
+    public void navegarA(String url) {
+
+        DriverContext.getDriver().get(url);
+
+    }
+
+    public void ingresarCredenciales(String email,
+                                     String password) {
+
+        escribirUsersname(email);
+        escribirPassword(password);
+        clickBtnSubmit();
+
+    }
+
+    public void verificarMensaje(String mensaje) {
+
+        validarMsgUsuarioInvalido();
+
     }
 
 }

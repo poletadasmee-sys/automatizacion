@@ -29,5 +29,4 @@ public class HomePage extends BaseController {
             fail("Error al detectar el mensaje de bienvenida: "+e.getMessage());
         }
     }
-
 }
