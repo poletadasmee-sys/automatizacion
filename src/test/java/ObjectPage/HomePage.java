@@ -19,8 +19,9 @@ public class HomePage extends BaseController {
 
 
     public void validarMsgBienvenida(){
+        sincronizarDriver();
         try {
-            if(this.msgBienvenida.isDisplayed()){
+            if(this.msgBienvenida != null && this.msgBienvenida.isDisplayed()){
                 System.out.println("EL mensaje es visible!");
             }else{
                 System.out.println("Error al  visualizar el mensaje!");

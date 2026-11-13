@@ -12,10 +12,14 @@ import Constant.Constant;
 import java.time.Duration;
 
 public class BaseController {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
 
     public BaseController() {
+        sincronizarDriver();
+    }
+
+    protected void sincronizarDriver() {
         this.driver = DriverContext.getDriver();
         if (this.driver != null) {
             this.wait = new WebDriverWait(driver, Duration.ofSeconds(Constant.TIME_DISPLAY), Duration.ofSeconds(Constant.POLLING));
