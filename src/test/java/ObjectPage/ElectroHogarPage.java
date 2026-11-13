@@ -636,8 +636,4 @@ public class ElectroHogarPage extends BaseController {
             );
         }
     }
-
-    public void setConoceIa(WebElement conoceIa) {
-        this.conoceIa = conoceIa;
-    }
 }

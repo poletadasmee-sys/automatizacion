@@ -105,6 +105,4 @@ public class ElectrohogarDefinition {
         electroHogarPage.validarControlComercialFicha();
     }
 
-    @And("//prueba que el control comercial principal no esté visible cuando el producto esté agotado")
-
 }
