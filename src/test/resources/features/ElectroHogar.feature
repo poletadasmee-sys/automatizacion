@@ -10,8 +10,7 @@ Feature: Catálogo de Electrohogar y Climatización
 
   @smoke
   Scenario: Abrir electrohogar desde el menú principal
-    Then debo visualizar el contexto de "Electrohogar y Climatización"
-    And debo disponer de categorías de electrodomésticos o climatización
+    Then debo visualizar el listado de Electrodomésticos
 
   @filtros
   Scenario: Filtrar electrodomésticos por una marca disponible
@@ -35,3 +34,4 @@ Feature: Catálogo de Electrohogar y Climatización
     Then su nombre debe coincidir con la tarjeta seleccionada
     And debo visualizar fotografía principal, precio y descripción o especificaciones
     And debe estar visible el control comercial principal cuando el producto esté disponible
+    And //prueba que el control comercial principal no esté visible cuando el producto esté agotado

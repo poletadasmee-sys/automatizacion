@@ -26,10 +26,21 @@ public class Hooks {
 
     @After
     public void tearDown(){
-        DriverContext.quitDriver();
+        if (DriverContext.getDriver() != null) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                DriverContext.quitDriver();
+            }
+        }
     }
 
     public void generarEvidencia(String imageRefName){
+        if (DriverContext.getDriver() == null) {
+            return;
+        }
         byte[] screenShot = ((TakesScreenshot) DriverContext.getDriver()).getScreenshotAs(OutputType.BYTES);
         this.scenario.attach(screenShot,"image/png", imageRefName);
     }
