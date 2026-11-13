@@ -5,65 +5,61 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import Constant.Constant;
+import Control.DriverContext;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import static org.junit.Assert.fail;
 
 public class LoginPage extends BaseController {
     private WebDriver driver;
 
-    @FindBy(id = "username")
-    private WebElement nombreUsuario;
+    @FindBy(xpath = "//*[@id=\"user-info\"]/div/div[1]/p")
+    private WebElement inicioSesion;
 
-    @FindBy(css = "input[name='password']")
-    private WebElement passwordUsuario;
+    @FindBy(xpath ="//*[@id=\"testId-cc-modal\"]/div/div/div[2]")
+    private WebElement despliegueInicioSesion;
 
-    @FindBy(xpath = "//button[contains(text(),'Submit')]")
-    private WebElement btnSubmit;
+    @FindBy(xpath = "//*[@id=\"testId-cc-login-form-email-input\"]")
+    private WebElement ingresoCorreo;
 
-    @FindBy(xpath = "//*[text() = 'Your username is invalid!']")
+    @FindBy(xpath = "//*[@id=\"testId-cc-login-form-password-input\"]")
+    private WebElement ingresoPassword;
+
+    @FindBy(xpath ="//*[@id=\"testId-cc-login-form-submit\"]")
+    private WebElement btnIngresar;
+
+    @FindBy(xpath = "//*[contains(text(),'Correo electrónico o contraseña incorrecta')]")
     private WebElement msgUsuarioInvalido;
 
+    private final WebDriverWait wait;
 
-    public void escribirUsersname(String nUsuario) {
-        try {
-            if (visualizarElemento(this.nombreUsuario, 10)) {
-                this.nombreUsuario.clear();
-                this.nombreUsuario.sendKeys(nUsuario);
-            } else {
-                fail("No se encuentra el campo Nombre de Usuario en la página");
-            }
-        } catch (Exception e) {
-            fail("Error al escribir en el campo de usuario: " + e.getMessage());
+    public LoginPage() {
+        this.driver = DriverContext.getDriver();
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver no está inicializado.");
         }
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Constant.TIME_RESPONSE));
     }
 
-    public void escribirPassword(String pass) {
-        try {
-            this.passwordUsuario.clear();
-            this.passwordUsuario.sendKeys(pass);
-        } catch (Exception e) {
-            fail("Error al escribir en el campo de password: " + e.getMessage());
-        }
+    public void ingresarCredenciales(String email, String password) {
+        wait.until(ExpectedConditions.elementToBeClickable(inicioSesion)).click();
+        wait.until(ExpectedConditions.visibilityOf(despliegueInicioSesion));
+        wait.until(ExpectedConditions.visibilityOf(ingresoCorreo)).sendKeys(email);
+        wait.until(ExpectedConditions.visibilityOf(ingresoPassword)).sendKeys(password);
+        clickBtnIngresar();
     }
 
-    public void clickBtnSubmit() {
-        try {
-            this.btnSubmit.click();
-        } catch (Exception e) {
-            fail("Error al hacer click en el botón Submit: " + e.getMessage());
-        }
+    public void clickBtnIngresar() {
+        wait.until(ExpectedConditions.elementToBeClickable(btnIngresar)).click();
     }
 
-    public void validarMsgUsuarioInvalido(){
-        try {
-            if(this.msgUsuarioInvalido.isDisplayed()){
-                System.out.println("Mensaje de usuario inválido visible");
-            }else{
-                System.out.println("Error al visualizar el mensaje de usuario inválido!");
-            }
-        }catch(Exception e){
-            fail("Error al detectar el mensaje de usuario inválido: "+e.getMessage());
-        }
-    }
+    public void verificarMensaje(String mensaje) {
+        String mensajeVisible = wait.until(
+                ExpectedConditions.visibilityOf(msgUsuarioInvalido)
+        ).getText().trim();
 
+        org.junit.Assert.assertEquals(mensaje, mensajeVisible);
+    }
 }
