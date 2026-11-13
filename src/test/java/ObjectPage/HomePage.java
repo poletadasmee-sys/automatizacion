@@ -1,33 +1,58 @@
+
 package ObjectPage;
 
 import Control.BaseController;
+import Control.DriverContext;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.Assert.fail;
+import java.time.Duration;
 
 public class HomePage extends BaseController {
-    private WebDriver driver;
-    
-    //@FindBy(xpath = "//button[contains(text(),'Congratulations student. You successfully logged in!')]")
-    //private WebElement msgBienvenida;
 
-    @FindBy(xpath = "//*[text() = 'Congratulations student. You successfully logged in!']")
-    public WebElement msgBienvenida;
+    public void cerrarAsesorIA() {
 
+        WebDriver driver = DriverContext.getDriver();
+        WebDriverWait wait = new WebDriverWait(
+                driver, Duration.ofSeconds(10)
+        );
 
-    public void validarMsgBienvenida(){
         try {
-            if(this.msgBienvenida.isDisplayed()){
-                System.out.println("EL mensaje es visible!");
-            }else{
-                System.out.println("Error al  visualizar el mensaje!");
-            }
-        }catch(Exception e){
-            fail("Error al detectar el mensaje de bienvenida: "+e.getMessage());
+            By botonOmitir = By.xpath(
+                    "//*[normalize-space()='Omitir' and (self::button or self::a)]"
+            );
+
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(botonOmitir)
+            ).click();
+
+            System.out.println("AsesorIA cerrada correctamente");
+
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("No apareció AsesorIA");
         }
     }
 
+    public void aceptarCookies() {
+
+        WebDriver driver = DriverContext.getDriver();
+        WebDriverWait wait = new WebDriverWait(
+                driver, Duration.ofSeconds(10)
+        );
+
+        try {
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(
+                            By.id("testId-accept-cookies-btn")
+                    )
+            ).click();
+
+            System.out.println("Cookies aceptadas correctamente");
+
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("No apareció el aviso de cookies");
+        }
+    }
 }

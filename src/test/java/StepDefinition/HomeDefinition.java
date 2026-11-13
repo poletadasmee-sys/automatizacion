@@ -1,15 +1,17 @@
+
 package StepDefinition;
 
 import ObjectPage.HomePage;
-import io.cucumber.java.en.Then;
-import org.openqa.selenium.WebDriver;
+import io.cucumber.java.en.And;
 
 public class HomeDefinition {
+
     private HomePage homePage = new HomePage();
 
-    @Then("se valida el mensaje Logged In Successfully")
-    public void seValidaElMensaje() {
-        homePage.validarMsgBienvenida();
-    }
+    @And("gestiono el aviso de cookies si está visible")
+    public void gestionarCookies() {
 
+        homePage.cerrarAsesorIA();
+        homePage.aceptarCookies();
+    }
 }
