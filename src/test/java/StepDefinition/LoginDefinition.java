@@ -1,22 +1,21 @@
 package StepDefinition;
 
-import ObjectPage.HomePage;
 import ObjectPage.LoginPage;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-//import io.github.bonigarcia.wdm.WebDriverManager;
+import Control.DriverContext;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
 
 public class LoginDefinition {
-    private LoginPage loginPage = new LoginPage();
 
-    @Given("que ingreso a la página principal de Sodimac Chile {string}")
+    private LoginPage loginPage = new LoginPage();
+    private WebDriver driver = DriverContext.getDriver();
+
+   /* @Given("que ingreso a la página principal de Sodimac Chile {string}")
     public void queIngresoALaPaginaPrincipalDeSodimacChile(String url) {
-        loginPage.navegarA(url);
+        // Como 'navegarA' lo tienes en esta misma clase, puedes llamarlo directo o usar driver.get(url)
+        driver.get(url);
     }
 
     @When("ingreso credenciales {string} y {string}")
@@ -28,5 +27,6 @@ public class LoginDefinition {
     public void verificoElMensaje(String mensaje) {
         loginPage.verificarMensaje(mensaje);
     }
+    */
 
 }
