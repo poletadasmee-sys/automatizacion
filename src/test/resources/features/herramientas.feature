@@ -21,8 +21,8 @@ Característica: Exploración de Herramientas y Maquinaria
     Y los precios visibles deben cumplir el orden "<direccion>" entre productos con precio comparable
     Ejemplos:
       | orden             | direccion   |
-      | Menor precio      | ascendente  |
-      | Mayor precio      | descendente |
+      | Precio de menor a mayor      | ascendente  |
+      | Precio de mayor a menor      | descendente |
 
   @detalle
   Escenario: Comprobar que una herramienta conserva su identificación al abrir el detalle

@@ -15,8 +15,8 @@ public class SodimacHerDefinition {
 
 
 //Primera Parte------------------------------------------------------------------------------
-        private SodimacHerPage sodimacHerPage;
-        private String nombreProductoGuardado;
+       private SodimacHerPage sodimacHerPage;
+
     // --- CICLO DE VIDA LOCAL PARA LA RAMA ---
 
     @Before
@@ -40,12 +40,16 @@ public class SodimacHerDefinition {
     // ----------------------------------------
     @Dado("que ingreso a la página principal de Sodimac Chile {string}")
     public void ingresarPaginaPrincipalSodimac(String url) {
+        // Si el driver es nulo o la sesión expiró, lo inicializamos de nuevo de forma segura
         if (DriverContext.getDriver() == null) {
             DriverContext.setUp(Navegador.Chrome, url);
         } else {
-            DriverContext.getDriver().get(url);
+            try {
+                DriverContext.getDriver().get(url);
+            } catch (Exception e) {
+                DriverContext.setUp(Navegador.Chrome, url);
+            }
         }
-        // Inicializamos la página aquí, asegurando que el driver ya está activo
         sodimacHerPage = new SodimacHerPage();
     }
 
@@ -82,8 +86,12 @@ public class SodimacHerDefinition {
 
     @Dado("que estoy en un listado con al menos tres productos con precios visibles")
     public void que_identifico_una_tarjeta_de_herramienta_con_nombre_y_precio_visibles() {
+
+        sodimacHerPage.seleccionarSubcategoriaHerramientasElectricas();
+
         sodimacHerPage.identificarTarjetaHerramientaVisible();
     }
+
     @When("selecciono el ordenamiento {string} en el control web")
     public void selecciono_el_ordenamiento_en_el_control_web(String orden) {
         sodimacHerPage.seleccionarOrdenamiento(orden);
@@ -100,8 +108,16 @@ public class SodimacHerDefinition {
 //Detalle----------------------------------------------------------------------------------------
     @Dado("que identifico una tarjeta de herramienta con nombre y precio visibles")
     public void que_identifico_una_tarjeta_de_herramienta_con_nombre_y_precio_visibles2() {
-    nombreProductoGuardado = sodimacHerPage.identificarTarjetaHerramientaVisible();
-}
+
+    sodimacHerPage.seleccionarSubcategoriaHerramientasElectricas();
+        System.out.println(
+                "URL actual: "
+                        + DriverContext.getDriver().getCurrentUrl());
+
+    nombreProductoGuardado =
+            sodimacHerPage.identificarTarjetaHerramientaVisible();
+
+    }
     @When("abro la ficha desde esa tarjeta")
     public void abro_la_ficha_desde_esa_tarjeta() {
         sodimacHerPage.abrirFichaDesdeTarjeta();
