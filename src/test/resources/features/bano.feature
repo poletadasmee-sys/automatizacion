@@ -8,14 +8,14 @@ Característica: Catálogo y fichas de Baño
     Y gestiono el aviso de cookies si está visible
     Y selecciono la categoría "Baño" desde el menú principal
 
-  @smoke
+  @smoke03
   Escenario: Explorar áreas de Baño desde el menú
     Entonces debo visualizar el contexto de la categoría "Baño"
     Y debo encontrar enlaces a tipos de productos de baño
     Cuando selecciono la opción visible "Griferías"
     Entonces debo visualizar el contexto de productos de grifería
 
-  @filtros
+  @filtros03
   Escenario: Combinar dos filtros disponibles y limpiar la selección
     Dado que me encuentro en un listado de productos de Baño con al menos dos filtros aplicables
     Cuando selecciono una opción disponible del primer filtro
@@ -25,14 +25,14 @@ Característica: Catálogo y fichas de Baño
     Cuando utilizo el control para limpiar filtros
     Entonces ninguna de las dos opciones debe mantenerse activa
 
-  @detalle
+  @detalle03
   Escenario: Inspeccionar galería de una ficha de grifería
     Dado que abro desde el listado un producto de grifería con varias imágenes
     Cuando selecciono una miniatura diferente de la galería
     Entonces la imagen principal debe actualizarse visualmente
     Y el nombre del producto debe permanecer visible
 
-  @navegacion
+  @navegacion03
   Escenario: Navegar entre categoría y ficha mediante breadcrumbs
     Dado que abro una ficha de producto de Baño con ruta de navegación visible
     Cuando selecciono un enlace anterior de la ruta de navegación
