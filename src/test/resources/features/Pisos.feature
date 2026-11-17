@@ -6,18 +6,18 @@ Característica: Exploración de Pisos
     Y gestiono el aviso de cookies si está visible
     Y selecciono la categoría "Pisos" desde el menú principal
 
-  @smoke
+  @smoke08
   Escenario: Abrir Pisos desde el menú
     Entonces debo visualizar el contexto de "Pisos"
     Y debo encontrar enlaces de revestimientos o tipos de pisos
 
-  @navegacion
+  @navegacion08
   Escenario: Entrar a revestimientos desde la categoría
     Cuando selecciono un tipo de piso o revestimiento visible
     Entonces debo visualizar un listado relacionado con el tipo seleccionado
     Y la ruta de navegación debe identificar el contexto de la sección cuando esté presente
 
-  @ordenamiento
+  @ordenamiento08
   Esquema del escenario: Comprobar orden de precios visibles de pisos
     Dado que accedo a un listado de pisos con tres o más precios comparables
     Cuando selecciono el criterio "<orden>" en el selector web
@@ -28,7 +28,7 @@ Característica: Exploración de Pisos
       | Precio de menor a mayor | ascendente  |
       | Precio de mayor a menor | descendente |
 
-  @detalle
+  @detalle08
   Escenario: Validar ficha de un revestimiento seleccionado
     Dado que identifico un producto de Pisos con nombre visible en el listado
     Cuando abro la ficha del producto
