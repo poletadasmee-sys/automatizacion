@@ -10,8 +10,7 @@ Feature: Catálogo de Electrohogar y Climatización
 
   @smoke
   Scenario: Abrir electrohogar desde el menú principal
-    Then debo visualizar el contexto de "Electrohogar y Climatización"
-    And debo disponer de categorías de electrodomésticos o climatización
+    Then debo visualizar el listado de Electrodomésticos
 
   @filtros
   Scenario: Filtrar electrodomésticos por una marca disponible
