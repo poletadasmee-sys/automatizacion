@@ -19,5 +19,4 @@ public class LoginDefinition {
     public void verificoElMensaje(String mensaje) {
         loginPage.verificarMensaje(mensaje);
     }
-
 }
