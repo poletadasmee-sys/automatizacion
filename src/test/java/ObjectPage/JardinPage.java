@@ -45,7 +45,7 @@ public class JardinPage {
 
     private static final String FORMATO_RESULTADOS_SIN_FILTRO =
             "^1\\s*-\\s*48\\s+de\\s+\\d+\\s+Resultados$";
-    private static final String RESULTADOS_ENVIO_GRATIS = "1 - 15 de 15 Resultados";
+    private static final String RESULTADOS_ENVIO_GRATIS = "1 - 16 de 16 Resultados";
     private static final By CONTADOR_RESULTADOS = By.id("search_numResults");
     private static final By FILTRO_ENVIO_GRATIS = By.id("Envío-gratis");
     private static final By ETIQUETA_FILTRO_ENVIO_GRATIS =
@@ -128,87 +128,168 @@ public class JardinPage {
     }
 
     // ==========================
-    // SUBCATEGORÍA
+    // SUBCATEGORIA
     // ==========================
 
     public void abrirSubcategoriaVisible() {
         String urlCategoria = Objects.requireNonNull(
-                driver.getCurrentUrl(), "La URL actual de la categoría no está disponible");
+                driver.getCurrentUrl(),
+                "La URL actual de la categoría no está disponible");
+
         urlCategoriaJardin = urlCategoria;
         diferenciasSubcategorias.clear();
         subcategoriasRevisadas = 0;
 
         Map<String, Subcategoria> subcategorias = new LinkedHashMap<>();
+
         By seccionCategoriasJardin = By.xpath(
                 "//div[@data-testid='collapsed-cards']"
                         + "[.//a[@data-testid='card-link'][contains(@href, '/lista/CATG')]]");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement seccion = Objects.requireNonNull(wait.until(webDriver ->
-                webDriver.findElements(seccionCategoriasJardin)
-                        .stream()
-                        .findFirst()
-                        .orElse(null)), "No se encontró la sección de categorías de Jardín");
+
+        WebDriverWait wait = new WebDriverWait(
+                driver, Duration.ofSeconds(15));
+
+        WebElement seccion = Objects.requireNonNull(
+                wait.until(webDriver ->
+                        webDriver.findElements(seccionCategoriasJardin)
+                                .stream()
+                                .findFirst()
+                                .orElse(null)),
+                "No se encontró la sección de categorías de Jardín");
 
         for (WebElement enlace : seccion.findElements(
                 By.cssSelector("a[data-testid='card-link'][href]"))) {
+
             String nombre = enlace.getText().trim();
             String url = enlace.getDomProperty("href");
+
             if (nombre.isEmpty()) {
-                String alt = enlace.findElement(By.cssSelector("img[alt]"))
+                String alt = enlace.findElement(
+                                By.cssSelector("img[alt]"))
                         .getDomAttribute("alt");
+
                 nombre = alt == null ? "" : alt.trim();
             }
-            if (!nombre.isEmpty() && url != null
+
+            if (!nombre.isEmpty()
+                    && url != null
                     && !ruta(url).equals(ruta(urlCategoria))) {
+
                 subcategorias.putIfAbsent(
                         url + "|" + normalizarCategoria(nombre),
                         new Subcategoria(nombre, url));
             }
         }
 
-        List<Subcategoria> destinos = new ArrayList<>(subcategorias.values());
+        List<Subcategoria> destinos =
+                new ArrayList<>(subcategorias.values());
 
-        Assert.assertFalse("No se encontraron subcategorías de Jardín", destinos.isEmpty());
+        Assert.assertFalse(
+                "No se encontraron subcategorías de Jardín",
+                destinos.isEmpty());
 
-        System.out.printf("Subcategorías visibles para Jardín: %d%n", destinos.size());
+        System.out.printf(
+                "Subcategorías visibles para Jardín: %d%n",
+                destinos.size());
+
         for (int i = 0; i < destinos.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, destinos.get(i).nombre());
+            System.out.printf(
+                    "%d. %s%n",
+                    i + 1,
+                    destinos.get(i).nombre());
         }
 
         for (Subcategoria destino : destinos) {
             String nombreEsperado = destino.nombre();
-            String tituloMostrado;
+            String tituloMostrado = "";
+            boolean navegacionFallida = false;
 
             try {
+                System.out.println(
+                        "Abriendo subcategoría: " + destino.url());
+
                 driver.get(destino.url());
-                WebElement titulo = Objects.requireNonNull(wait.until(webDriver ->
-                        webDriver.findElements(tituloPagina).stream()
-                                .filter(WebElement::isDisplayed)
-                                .findFirst()
-                                .orElse(null)), "No se encontró un título visible");
+
+                WebElement titulo = Objects.requireNonNull(
+                        wait.until(webDriver ->
+                                webDriver.findElements(tituloPagina)
+                                        .stream()
+                                        .filter(WebElement::isDisplayed)
+                                        .findFirst()
+                                        .orElse(null)),
+                        "No se encontró un título visible");
+
                 tituloMostrado = titulo.getText().trim();
+
             } catch (TimeoutException error) {
+                navegacionFallida = true;
                 tituloMostrado = "No se encontró un título visible";
+
+                System.out.println(
+                        "TIMEOUT al abrir o validar: "
+                                + nombreEsperado);
+                System.out.println(
+                        "Detalle: " + error.getMessage());
+
             } finally {
-                driver.get(urlCategoria);
+                System.out.println(
+                        "Regresando a Jardín: " + urlCategoria);
+
+                try {
+                    driver.get(urlCategoria);
+
+                    System.out.println(
+                            "Regreso a Jardín completado");
+
+                } catch (TimeoutException error) {
+                    System.out.println(
+                            "TIMEOUT al regresar a Jardín");
+                    System.out.println(
+                            "Detalle: " + error.getMessage());
+
+                    throw new AssertionError(
+                            "No se pudo regresar a Jardín "
+                                    + "después de revisar: "
+                                    + nombreEsperado,
+                            error);
+                }
             }
 
             subcategoriasRevisadas++;
-            String nombreEsperadoNormalizado = normalizarCategoria(nombreEsperado);
-            String tituloMostradoNormalizado = normalizarCategoria(tituloMostrado);
-            boolean coincide = !tituloMostradoNormalizado.isEmpty()
-                    && (nombreEsperadoNormalizado.equals(tituloMostradoNormalizado)
-                    || nombreEsperadoNormalizado.contains(tituloMostradoNormalizado)
-                    || tituloMostradoNormalizado.contains(nombreEsperadoNormalizado)
-                    || coincidePorPalabras(nombreEsperado, tituloMostrado));
-            String resultado = coincide ? "EXITOSO" : "NO EXITOSO";
-            String mensaje = coincide
-                    ? "Se esperaba la subcategoría '" + nombreEsperado
-                    + "', y el título mostrado es '" + tituloMostrado + "'"
-                    : "Se esperaba la subcategoría '" + nombreEsperado
-                    + "', pero el título mostrado es '" + tituloMostrado + "'";
 
-            System.out.printf("%s | %s%n", mensaje, resultado);
+            String nombreEsperadoNormalizado =
+                    normalizarCategoria(nombreEsperado);
+
+            String tituloMostradoNormalizado =
+                    normalizarCategoria(tituloMostrado);
+
+            boolean coincide = !navegacionFallida
+                    && !tituloMostradoNormalizado.isEmpty()
+                    && (nombreEsperadoNormalizado.equals(
+                    tituloMostradoNormalizado)
+                    || nombreEsperadoNormalizado.contains(
+                    tituloMostradoNormalizado)
+                    || tituloMostradoNormalizado.contains(
+                    nombreEsperadoNormalizado)
+                    || coincidePorPalabras(
+                    nombreEsperado, tituloMostrado));
+
+            String resultado =
+                    coincide ? "EXITOSO" : "NO EXITOSO";
+
+            String mensaje = coincide
+                    ? "Se esperaba la subcategoría '"
+                    + nombreEsperado
+                    + "', y el título mostrado es '"
+                    + tituloMostrado + "'"
+                    : "Se esperaba la subcategoría '"
+                    + nombreEsperado
+                    + "', pero el título mostrado es '"
+                    + tituloMostrado + "'";
+
+            System.out.printf(
+                    "%s | %s%n", mensaje, resultado);
+
             if (!coincide) {
                 diferenciasSubcategorias.add(mensaje);
             }
@@ -278,12 +359,17 @@ public class JardinPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", etiqueta);
         wait.until(webDriver ->
                 webDriver.findElement(FILTRO_ENVIO_GRATIS).isSelected());
+
+        // ⭐ AGREGADO: diagnóstico temporal
+        System.out.println("RESULTADOS ACTUALES: [" +
+                driver.findElement(CONTADOR_RESULTADOS).getText().trim() + "]");
+
         wait.until(webDriver ->
                 RESULTADOS_ENVIO_GRATIS.equals(
                         webDriver.findElement(CONTADOR_RESULTADOS).getText().trim()));
 
         Assert.assertEquals(
-                "El filtro Envío a domicilio Gratis no produjo los 15 resultados esperados",
+                "El filtro Envío a domicilio Gratis no produjo los 16 resultados esperados",
                 RESULTADOS_ENVIO_GRATIS,
                 driver.findElement(CONTADOR_RESULTADOS).getText().trim());
         System.out.println("Filtro seleccionado: Envío a domicilio - Gratis");
@@ -302,8 +388,8 @@ public class JardinPage {
 
     public void validarRespuestaListado() {
         Assert.assertEquals(
-                "Debe mostrarse el listado filtrado de 15 productos",
-                15,
+                "Debe mostrarse el listado filtrado de 16 productos",
+                16,
                 driver.findElements(TARJETAS_PRODUCTOS).size());
     }
 

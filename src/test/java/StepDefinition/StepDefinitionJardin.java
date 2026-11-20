@@ -30,16 +30,16 @@ public class StepDefinitionJardin {
 
         jardinDefinition.abrirHome();
     }
-
-    @Y("gestiono el aviso de cookies si está visible")
+    // MODIFICADO: paso exclusivo de Jardín
+    @Y("gestiono el aviso de cookies de Jardín si está visible")
     public void gestionarCookies() {
 
         jardinDefinition.gestionarCookies();
     }
 
-    @Y("selecciono la categoría {string} desde el menú principal")
+    // MODIFICADO: paso exclusivo de Jardín
+    @Y("selecciono la categoría de Jardín {string} desde el menú principal")
     public void seleccionarCategoria(String categoria) {
-
         jardinDefinition.navegarAJardin(categoria);
     }
 

@@ -1,26 +1,30 @@
 # language: es
-@sodimac
-@web @qa05 @jardin
+
+@sodimac @web @qa05 @jardin
 Característica: Exploración de Jardín
+
   Antecedentes:
     Dado que ingreso a la página principal de Sodimac Chile
-    Y gestiono el aviso de cookies si está visible
-    Y selecciono la categoría "Jardín" desde el menú principal
+    Y gestiono el aviso de cookies de Jardín si está visible
+    Y selecciono la categoría de Jardín "Jardín" desde el menú principal
 
-  @smoke
+  # ⭐ MODIFICADO: etiqueta exclusiva QA05
+  @smoke05
   Escenario: Visualizar la categoría Jardín desde el menú
     Entonces debo visualizar el contexto de "Jardín"
     Y debo visualizar tarjetas o enlaces de categorías del área
     Y el menú debe permitir navegar a otras secciones
 
-  @navegacion
+  # ⭐ MODIFICADO: etiqueta exclusiva QA05
+  @navegacion05
   Escenario: Abrir una subcategoría de jardín y regresar
     Cuando selecciono una subcategoría visible de productos de jardín
     Entonces debo visualizar el título o breadcrumb correspondiente a dicha subcategoría
     Cuando regreso a la categoría superior con un control de navegación web
     Entonces debo visualizar nuevamente el contexto de Jardín
 
-  @filtros
+  # ⭐ MODIFICADO: antes @filtros
+  @filtros05
   Escenario: Verificar aplicación y eliminación de filtro de productos para jardín
     Dado que accedo a una lista de productos de Jardín con filtros visibles
     Cuando activo un filtro con productos disponibles
@@ -29,7 +33,8 @@ Característica: Exploración de Jardín
     Cuando elimino el filtro desde la interfaz
     Entonces debe volver a mostrarse sin seleccionar
 
-  @detalle
+  # ⭐ MODIFICADO: antes @detalle
+  @detalle05
   Escenario: Verificar tarjeta de producto y ficha de jardín
     Dado que identifico un producto de jardín con nombre visible
     Cuando abro su ficha desde la tarjeta
