@@ -11,13 +11,13 @@ Feature: Navegación y exploración de Construcción
     And gestiono el aviso de cookies si está visible
     And selecciono la categoría "Construcción" desde el menú principal
 
-  @smoke
+  @smoke01
   Scenario: Acceder a Construcción manteniendo contexto visual
     Then debo visualizar el encabezado correspondiente a "Construcción"
     And debo visualizar el área de productos o subcategorías de construcción
     And la navegación principal debe continuar disponible
 
-  @navegacion
+  @navegacion01
   Scenario Outline: Navegar a subcategorías desde Construcción
     When selecciono la subcategoría visible "<subcategoria>"
     Then debo visualizar el título o ruta de navegación de "<subcategoria>"
@@ -28,7 +28,7 @@ Feature: Navegación y exploración de Construcción
       | Maderas y Tableros |
       | Techos y Aislantes |
 
-  @filtros
+  @filtros01
   Scenario: Aplicar y quitar un filtro visible de productos
     Given que estoy en un listado de productos de Construcción con filtros disponibles
     When activo una opción de filtro que tenga resultados
@@ -37,7 +37,7 @@ Feature: Navegación y exploración de Construcción
     When retiro ese filtro usando el control web
     Then la opción no debe permanecer seleccionada
 
-  @detalle
+  @detalle01
   Scenario: Validar consistencia de una ficha desde el listado
     Given que existe al menos una tarjeta de producto disponible en Construcción
     When registro el nombre visible del primer producto y abro su detalle
