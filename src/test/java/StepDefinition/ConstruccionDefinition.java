@@ -11,7 +11,13 @@ public class ConstruccionDefinition {
 
     private ConstruccionPage construccionPage = new ConstruccionPage();
 
-    @And("selecciono la categoría {string} desde el menú principal")
+    @And("gestiono el aviso de cookies de Construcción si está visible")
+    public void gestionarCookiesConstruccion() {
+        construccionPage.cerrarAsesorIA();
+        construccionPage.aceptarCookies();
+    }
+
+    @And("selecciono la categoría de Construcción {string} desde el menú principal")
     public void seleccionarCategoria(String categoria) {
         construccionPage.abrirMenu();
         construccionPage.seleccionarCategoria(categoria);

@@ -1,4 +1,3 @@
-
 package StepDefinition;
 
 import Constant.Navegador;
@@ -9,24 +8,16 @@ import org.junit.Assert;
 
 public class NavDefinition {
 
-    @Given("que ingreso a la página principal de Sodimac Chile")
-    public void ingresarSodimacChile() {
+    @Given("abrir el navegador en la url {string}")
+    public void abrirNavegador(String url) throws InterruptedException {
 
         String nav = System.getProperty("nav", "default");
         Navegador navegador = NavSelector.seleccionNavegador(nav);
-
-        String url = "https://www.sodimac.cl/sodimac-cl";
-
         DriverContext.setUp(navegador, url);
-
+        Thread.sleep(5000);
         String urlActual = DriverContext.getDriver().getCurrentUrl();
+        System.out.println("URL Actual: "+ urlActual);
+        Assert.assertEquals(urlActual,url);
 
-        Assert.assertEquals(
-                "No se ingresó correctamente a Sodimac",
-                url,
-                urlActual
-        );
-
-        System.out.println("Sodimac abierto correctamente");
     }
 }

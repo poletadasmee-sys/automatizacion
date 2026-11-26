@@ -7,9 +7,9 @@ Feature: Navegación y exploración de Construcción
   y comprobar que los controles de la interfaz sean consistentes.
 
   Background:
-    Given que ingreso a la página principal de Sodimac Chile
-    And gestiono el aviso de cookies si está visible
-    And selecciono la categoría "Construcción" desde el menú principal
+    Given abrir el navegador en la url "https://www.sodimac.cl/sodimac-cl"
+    And gestiono el aviso de cookies de Construcción si está visible
+    And selecciono la categoría de Construcción "Construcción" desde el menú principal
 
   @smoke01
   Scenario: Acceder a Construcción manteniendo contexto visual
