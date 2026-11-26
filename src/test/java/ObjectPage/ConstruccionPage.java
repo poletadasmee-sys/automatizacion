@@ -1,4 +1,3 @@
-
 package ObjectPage;
 
 import Control.BaseController;
@@ -43,6 +42,35 @@ public class ConstruccionPage extends BaseController {
         PageFactory.initElements(DriverContext.getDriver(), this);
     }
 
+    public void cerrarAsesorIA() {
+        WebDriver driver = DriverContext.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            By botonOmitir = By.xpath(
+                    "//*[normalize-space()='Omitir' and (self::button or self::a)]"
+            );
+            wait.until(ExpectedConditions.elementToBeClickable(botonOmitir)).click();
+            System.out.println("Asesor IA cerrado correctamente");
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("No apareció el asesor IA");
+        }
+    }
+
+    public void aceptarCookies() {
+        WebDriver driver = DriverContext.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(
+                    By.id("testId-accept-cookies-btn")
+            )).click();
+            System.out.println("Cookies aceptadas correctamente");
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("No apareció el aviso de cookies");
+        }
+    }
+
 
 
 
@@ -55,18 +83,33 @@ public class ConstruccionPage extends BaseController {
         );
 
         By botonMenu = By.cssSelector(
-                "[data-testid='CategoryButton']"
+                "[data-testid='CategoryButton'], " +
+                        "div[class*='SiSMenuMobile-module_menuButton']"
         );
 
-        wait.until(
-                ExpectedConditions.elementToBeClickable(botonMenu)
-        ).click();
+        WebElement menuVisible = wait.until(d -> {
 
-        System.out.println("Menú principal abierto");
+            for (WebElement e : d.findElements(botonMenu)) {
+                if (e.isDisplayed() && e.isEnabled()) {
+                    return e;
+                }
+            }
+
+            return null;
+        });
+
+        menuVisible.click();
+
+        By categorias = By.xpath(
+                "//*[normalize-space()='Categorías']"
+        );
+
+        wait.until(d -> d.findElements(categorias)
+                .stream()
+                .anyMatch(WebElement::isDisplayed));
+
+        System.out.println("Menú principal abierto correctamente");
     }
-
-
-
 
     public void seleccionarCategoria(String categoria) {
 
@@ -99,49 +142,69 @@ public class ConstruccionPage extends BaseController {
         System.out.println("Categoría seleccionada: " + categoria);
     }
 
-
-
-
     public void encabezado(String categoria) {
 
+        WebDriver driver = DriverContext.getDriver();
+
         WebDriverWait wait = new WebDriverWait(
-                DriverContext.getDriver(),
-                Duration.ofSeconds(20)
+                driver, Duration.ofSeconds(20)
         );
 
-        wait.until(
-                ExpectedConditions.visibilityOf(categoriaConstruccion)
+        By encabezadoCategoria = By.xpath(
+                "//*[normalize-space()='" + categoria + "']"
         );
 
-        String textoEncabezado = categoriaConstruccion.getText().trim();
+        WebElement encabezadoVisible = wait.until(d -> {
+
+            for (WebElement e : d.findElements(encabezadoCategoria)) {
+                if (e.isDisplayed() && e.getText().trim().equals(categoria)) {
+                    return e;
+                }
+            }
+
+            return null;
+        });
 
         Assert.assertEquals(
                 "El encabezado no corresponde a la categoría",
                 categoria,
-                textoEncabezado
+                encabezadoVisible.getText().trim()
         );
+
+        System.out.println("Encabezado visible: " + categoria);
     }
-
-
 
 
     public void validarSubcategorias() {
 
+        WebDriver driver = DriverContext.getDriver();
+
         WebDriverWait wait = new WebDriverWait(
-                DriverContext.getDriver(),
-                Duration.ofSeconds(20)
+                driver, Duration.ofSeconds(20)
         );
+
+        By subcategoria = By.xpath(
+                "//*[normalize-space()='Maderas y Tableros']"
+        );
+
+        WebElement contenido = wait.until(d -> {
+
+            for (WebElement e : d.findElements(subcategoria)) {
+                if (e.isDisplayed()) {
+                    return e;
+                }
+            }
+
+            return null;
+        });
 
         Assert.assertTrue(
-                "No se visualizan las subcategorías",
-                wait.until(
-                        ExpectedConditions.visibilityOf(areaSubcategorias)
-                ).isDisplayed()
+                "No se visualizan las subcategorías de Construcción",
+                contenido.isDisplayed()
         );
+
+        System.out.println("Subcategorías de Construcción visibles");
     }
-
-
-
 
     public void validarNavegacion() {
 
@@ -256,7 +319,7 @@ public class ConstruccionPage extends BaseController {
         );
 
     }
-    public void filtrosdisponibles(){
+    public void filtrosdisponibles() {
 
         seleccionarSubcategoria("Maderas y Tableros");
 
@@ -264,11 +327,23 @@ public class ConstruccionPage extends BaseController {
                 DriverContext.getDriver(),
                 Duration.ofSeconds(20)
         );
+
+        By buscadorMarca = By.id("testId-verMas-facet-Marca");
+
+        WebElement buscador = wait.until(
+                ExpectedConditions.elementToBeClickable(buscadorMarca)
+        );
+
+        buscador.clear();
+        buscador.sendKeys("Lp");
+
         wait.until(
                 ExpectedConditions.presenceOfElementLocated(
                         By.id("checkbox-LP")
                 )
         );
+
+        System.out.println("Filtro LP disponible correctamente");
     }
     public void filtrosresultados() {
 
@@ -367,21 +442,32 @@ public class ConstruccionPage extends BaseController {
     }
     public void validarFiltroRetirado() {
 
+        WebDriver driver = DriverContext.getDriver();
+
         WebDriverWait wait = new WebDriverWait(
-                DriverContext.getDriver(),
-                Duration.ofSeconds(20)
+                driver, Duration.ofSeconds(20)
         );
+
+        By buscadorMarca = By.id("testId-verMas-facet-Marca");
+
+        WebElement buscador = wait.until(
+                ExpectedConditions.elementToBeClickable(buscadorMarca)
+        );
+
+        buscador.clear();
+        buscador.sendKeys("Lp");
+
+        By checkboxLP = By.id("checkbox-LP");
 
         wait.until(
                 ExpectedConditions.elementSelectionStateToBe(
-                        By.id("checkbox-LP"),
-                        false
+                        checkboxLP, false
                 )
         );
 
         Assert.assertFalse(
                 "El filtro LP continúa seleccionado",
-                filtroMarcaLP.isSelected()
+                driver.findElement(checkboxLP).isSelected()
         );
 
         System.out.println("Filtro LP desmarcado correctamente");
